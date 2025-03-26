@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const {user,logOut}=useContext(AuthContext)
+  const handleLogout = () => {
+    console.log("Logging out...");
+
+  logOut()
+      .then(() => {
+        console.log("User logged out successfully");
+        Swal.fire("LogOut successfully");
+      })
+      .catch((error) => console.log("Logout error:", error));
+  };
+
   const navoption = (
     <>
       <li>
@@ -13,6 +27,39 @@ const Navbar = () => {
       <li>
         <NavLink to="/order/salad">Order Food</NavLink>
       </li>
+   {
+  user? <><div className="flex gap-2">
+ 
+  <div className="dropdown dropdown-end">
+    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+      <div className="w-10 rounded-full">
+        <img
+          alt="Tailwind CSS Navbar component"
+          src={user.photoURL} />
+      </div>
+    </div>
+    <ul
+      tabIndex={0}
+      className="menu menu-sm dropdown-content bg-green-500 rounded-box z-1 mt-3 w-52 p-2 shadow">
+      <li>
+        <a className="justify-between">
+          Profile
+          
+        </a>
+      </li>
+      <li><a>Settings</a></li>
+      <li><button onClick={handleLogout}>Logout</button></li>
+    </ul>
+  </div>
+</div></> :<>
+     <li>
+
+        
+<NavLink to="/login">Login</NavLink>
+</li>
+  
+  </>
+   }
     </>
   );
 
@@ -43,11 +90,11 @@ const Navbar = () => {
             {navoption}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-xl">Bistro-Boss</a>
       </div>
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navoption}</ul>
-        <a className="btn ml-4">Login</a>
+        
       </div>
     </div>
   );
