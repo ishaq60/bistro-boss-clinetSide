@@ -1,14 +1,17 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import { FaCartShopping } from "react-icons/fa6";
+import UseCart from "../../hooks/UseCart";
 
 const Navbar = () => {
-  const {user,logOut}=useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext);
+  const [cart]=UseCart()
   const handleLogout = () => {
     console.log("Logging out...");
 
-  logOut()
+    logOut()
       .then(() => {
         console.log("User logged out successfully");
         Swal.fire("LogOut successfully");
@@ -27,39 +30,53 @@ const Navbar = () => {
       <li>
         <NavLink to="/order/salad">Order Food</NavLink>
       </li>
-   {
-  user? <><div className="flex gap-2">
- 
-  <div className="dropdown dropdown-end">
-    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-      <div className="w-10 rounded-full">
-        <img
-          alt="Tailwind CSS Navbar component"
-          src={user.photoURL} />
-      </div>
-    </div>
-    <ul
-      tabIndex={0}
-      className="menu menu-sm dropdown-content bg-green-500 rounded-box z-1 mt-3 w-52 p-2 shadow">
       <li>
-        <a className="justify-between">
-          Profile
-          
-        </a>
+        <Link to='/dashboard/cart' >
+          <button  className="btn">
+          <FaCartShopping className=" w-4 mr-2"></FaCartShopping> <div className="badge badge-sm badge-secondary">{cart.length}</div>
+          </button>
+        </Link>
       </li>
-      <li><a>Settings</a></li>
-      <li><button onClick={handleLogout}>Logout</button></li>
-    </ul>
-  </div>
-</div></> :<>
-     <li>
-
-        
-<NavLink to="/login">Login</NavLink>
-</li>
-  
-  </>
-   }
+      {user ? (
+        <>
+          <div className="flex gap-2">
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src={user.photoURL}
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-green-500 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              >
+                <li>
+                  <a className="justify-between">Profile</a>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <li>
+            <NavLink to="/login">Login</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
@@ -94,7 +111,6 @@ const Navbar = () => {
       </div>
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navoption}</ul>
-        
       </div>
     </div>
   );

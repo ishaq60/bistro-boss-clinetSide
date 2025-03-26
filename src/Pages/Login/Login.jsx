@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { toast, ToastContainer } from 'react-toastify';
 
 const Login = () => {
     const navigate=useNavigate()
     const location=useLocation()
-    const from=location.state?.from?.pathname||'/'
-    console.log(from)
+    const from = location.state?.from?.pathname ;
+console.log("location is state", location.state);
+console.log(from);
     const [disabled, setDisabled] = useState(true);
     const captchaRef = useRef(null);
 const {user,signIn}=useContext(AuthContext)
@@ -31,7 +32,7 @@ const {user,signIn}=useContext(AuthContext)
             const user=result.user
             console.log(user)
              toast.success('user  Login successfull')
-             navigate(from,{replace:true})
+             navigate(location.state?.from || '/', { replace: true });
         })
 
     };

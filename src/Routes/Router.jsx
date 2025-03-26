@@ -9,6 +9,9 @@ import Order from "../Pages/Order/Order";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import PrivateRoutes from "./PrivateRoutes";
+import Dashboard from "../Layout/Dashbord/Dashboard";
+import Dashbioardcart from "../Dashboard page/cart/Dashbioardcart";
+
 
 
   const router = createBrowserRouter([
@@ -28,9 +31,9 @@ import PrivateRoutes from "./PrivateRoutes";
         {
           path: 'order/:category',
           element:
-          <PrivateRoutes>
-  <Order/>
-          </PrivateRoutes>
+ <Order/>
+         
+         
         
         },
         {
@@ -44,7 +47,16 @@ import PrivateRoutes from "./PrivateRoutes";
     
       ]
     },
-   
+   {
+    path:'dashboard',
+    element:<Dashboard></Dashboard>,
+    children:[
+      {
+        path:'cart',
+        element:<Dashbioardcart></Dashbioardcart>
+      }
+    ]
+   }
   ]);
   
   export default router
