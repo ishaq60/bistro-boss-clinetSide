@@ -4,8 +4,12 @@ import { AuthContext } from '../../AuthProvider/AuthProvider';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { toast, ToastContainer } from 'react-toastify';
+import { FaGoogle } from 'react-icons/fa6';
+import UseAxiosPublic from '../../hooks/UseAxiosPublic';
+
 
 const Login = () => {
+    const axiosPublic=UseAxiosPublic()
     const navigate=useNavigate()
     const location=useLocation()
     const from = location.state?.from?.pathname ;
@@ -13,7 +17,7 @@ console.log("location is state", location.state);
 console.log(from);
     const [disabled, setDisabled] = useState(true);
     const captchaRef = useRef(null);
-const {user,signIn}=useContext(AuthContext)
+const {user,signIn,handleGoogleLogin}=useContext(AuthContext)
 
 
     useEffect(() => {
@@ -45,6 +49,27 @@ const {user,signIn}=useContext(AuthContext)
             setDisabled(true);
         }
     };
+    const GoogleLogin = (e) => {
+        console.log('click')
+        handleGoogleLogin()
+            .then(res => {
+                console.log(res);
+                const userInfo={
+                    email:res.user?.email,
+                    name:res.user?.displayName
+                }
+                axiosPublic.post('/user',userInfo)
+                .then(res=>{
+                    console.log(res.data)
+                })
+                
+                navigate(location.state?.from || '/', { replace: true });
+            })
+            .catch(error => {
+                console.error("Login Error:", error);
+            });
+    };
+    
 
     return (
         <>
@@ -98,6 +123,7 @@ const {user,signIn}=useContext(AuthContext)
                             />
                         </fieldset>
                     </form>
+                    <button onClick={GoogleLogin} className="btn p-4 bg-base-100"><FaGoogle/> </button>
                     <p>New Here ? please  <span className='text-yellow-500'><Link to='/register' >Reister</Link></span> </p>
                 </div>
             </div>

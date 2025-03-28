@@ -11,6 +11,7 @@ import Register from "../Pages/Register/Register";
 import PrivateRoutes from "./PrivateRoutes";
 import Dashboard from "../Layout/Dashbord/Dashboard";
 import Dashbioardcart from "../Dashboard page/cart/Dashbioardcart";
+import AllUser from "../Layout/Dashbord/AllUsers/AllUser";
 
 
 
@@ -49,11 +50,21 @@ import Dashbioardcart from "../Dashboard page/cart/Dashbioardcart";
     },
    {
     path:'dashboard',
-    element:<Dashboard></Dashboard>,
+    element:<PrivateRoutes>
+  <Dashboard></Dashboard>,
+    </PrivateRoutes>,
+  
     children:[
       {
         path:'cart',
-        element:<Dashbioardcart></Dashbioardcart>
+        element:<PrivateRoutes>
+    <Dashbioardcart></Dashbioardcart>
+        </PrivateRoutes>
+     
+      },
+      {
+        path:'admin/alluser',
+        element:<AllUser></AllUser>
       }
     ]
    }
