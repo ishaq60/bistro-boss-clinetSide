@@ -1,7 +1,7 @@
 import {
-    createBrowserRouter,
-    RouterProvider,
-  } from "react-router-dom";
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import Main from "../Layout/Main";
 import Home from "../Pages/Home";
 import Menu from "../Pages/Menu/Menu";
@@ -15,59 +15,66 @@ import AllUser from "../Layout/Dashbord/AllUsers/AllUser";
 
 
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main/>,
-      children:[
-        {
-          path:"/",
-          element:<Home/>
-
-        },
-        {
-          path:"menu",
-          element:<Menu/>
-        },
-        {
-          path: 'order/:category',
-          element:
- <Order/>
-         
-         
-        
-        },
-        {
-          path:'login',
-          element:<Login/>
-        },
-        {
-          path:'register',
-          element:<Register></Register>
-        }
-    
-      ]
-    },
-   {
-    path:'dashboard',
-    element:<PrivateRoutes>
-  <Dashboard></Dashboard>,
-    </PrivateRoutes>,
-  
-    children:[
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Main />,
+    children: [
       {
-        path:'cart',
-        element:<PrivateRoutes>
-    <Dashbioardcart></Dashbioardcart>
-        </PrivateRoutes>
-     
+        path: "/",
+        element: <Home />
+
       },
       {
-        path:'admin/alluser',
-        element:<AllUser></AllUser>
+        path: "menu",
+        element: <Menu />
+      },
+      {
+        path: 'order/:category',
+        element:
+          <Order />
+
+
+
+      },
+      {
+        path: 'login',
+        element: <Login />
+      },
+      {
+        path: 'register',
+        element: <Register></Register>
+      }
+
+    ]
+  },
+  {
+    path: 'dashboard',
+    element: <PrivateRoutes>
+      <Dashboard></Dashboard>,
+    </PrivateRoutes>,
+
+    children: [
+      {
+        path: 'cart',
+        element: <PrivateRoutes>
+          <Dashbioardcart></Dashbioardcart>
+        </PrivateRoutes>
+
+      },
+      {
+        path: 'admin/alluser',
+        element:<PrivateRoutes>
+
+          <AllUser>
+
+
+          </AllUser>
+        </PrivateRoutes>
+
       }
     ]
-   }
-  ]);
-  
-  export default router
+  }
+]);
+
+export default router
