@@ -19,7 +19,7 @@ const Dashboard = () => {
        {
         isAdmin ? <>
          <li  >
-            <NavLink   to="/dashboard/admin/home" className="flex active: items-center gap-2">
+            <NavLink   to="/dashboard/admin/Adminhome" className="flex active: items-center gap-2">
               <FaHome />Admin Home
             </NavLink>
           </li>
@@ -48,7 +48,7 @@ const Dashboard = () => {
         </>:
         <>
          <li  >
-            <NavLink   to="/dashboard" className="flex active: items-center gap-2">
+            <NavLink   to="/dashboard/userHome" className="flex active: items-center gap-2">
               <FaShoppingCart />User Home
             </NavLink>
           </li>
@@ -68,12 +68,17 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/dashboard/paymenthistory" 
+            className="flex items-center gap-2">
+              <MdOutlinePayment /> Payment History
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/dashboard/review" className="flex items-center gap-2">
               <FaList /> Review
             </NavLink>
           </li>
-
-        
+      
         </>
        }
           <div className="divider menu-horizontal"></div>

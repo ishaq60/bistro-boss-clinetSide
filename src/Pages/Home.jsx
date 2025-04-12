@@ -3,7 +3,7 @@ import Banner from './Home/Banner/Banner';
 import Category from './Home/Category/Category';
 import PopularManu from './Home/PopularManu/PopularManu';
 import Feature from './Home/Feature/Feature';
-import Testomunilus from './Home/Testomonuls/Testomunilus';
+// import Testomunilus from './Home/Testomonuls/Testomunilus';
 import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
@@ -16,7 +16,7 @@ const Home = () => {
            <Category/>
           <PopularManu/>
           <Feature/>
-          <Testomunilus/>
+          {/* <Testomunilus/> */}
         </div>
     );
 };

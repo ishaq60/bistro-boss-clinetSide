@@ -5,6 +5,7 @@ import { FaTrash } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
 import Swal from "sweetalert2";
 import UseAxiosSecure from "../../hooks/UseAxiosSecure";
+import { Link } from "react-router-dom";
 
 const Dashbioardcart = () => {
     const axiosSecure=UseAxiosSecure()
@@ -48,7 +49,10 @@ const Dashbioardcart = () => {
       <div className="flex justify-evenly">
         <h2 className="text-4xl">Items: {cart.length}</h2>
         <h2 className="text-4xl">total Price :{totalPrice}</h2>
-        <button className="btn px-8 btn-primary">Pay</button>
+       {
+        cart.length ?<Link to='/dashboard/payment'> <button  className="btn px-8 btn-primary">Pay</button> </Link>:
+        <button disabled  className="btn px-8 btn-primary">Pay</button>
+       }
       </div>
       <div className="overflow-x-auto">
         <table className="table">

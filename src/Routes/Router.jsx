@@ -14,7 +14,10 @@ import AdminRoutes from "./AdminRoutes";
 import ManageItem from "../Layout/Dashbord/ManageItem";
 import UpdateItem from "../Layout/Dashbord/UpdateItem/UpdateItem";
 import axios from "axios";
-
+import UsePayment from "../Layout/Dashbord/UsePayment";
+import PaymentHistory from "../Layout/Dashbord/PaymentHistory/PaymentHistory";
+import AdminHome from "../Layout/Dashbord/AdminHome/AdminHome";
+import UserHome from "../Layout/Dashbord/UserHome/UserHome";
 
 const router = createBrowserRouter([
   {
@@ -55,11 +58,32 @@ const router = createBrowserRouter([
       {
         path: "cart",
         element: (
-          <AdminRoutes>
+          <PrivateRoutes>
             <Dashbioardcart></Dashbioardcart>
-          </AdminRoutes>
+          </PrivateRoutes>
         ),
       },
+      {
+        path: "/dashboard/payment",
+        element: (
+          <PrivateRoutes>
+            <UsePayment></UsePayment>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/paymenthistory",
+        element: (
+        
+           <PaymentHistory></PaymentHistory>
+         
+        ),
+      },
+      {
+        path:'/dashboard/userHome',
+        element:<UserHome></UserHome>
+      },
+   
       {
         path: "admin/alluser",
         element: (
@@ -77,23 +101,34 @@ const router = createBrowserRouter([
         ), ///dashboard/admin/updateItem/
       },
       {
-        path:'/dashboard/admin/mangeitem',
-        element:<PrivateRoutes>
-         <ManageItem/>
-        </PrivateRoutes>
-      },
+        path: "/dashboard/admin/mangeitem",
+        element: (
+          <PrivateRoutes>
+            <ManageItem />
+          </PrivateRoutes>
+        ),
       
+      },
       {
-        path: '/dashboard/admin/updateItem/:id',
-        element: <PrivateRoutes><UpdateItem /></PrivateRoutes>,
+        path:'/dashboard/admin/AdminHome',
+        element:<AdminHome/>
+
+      },
+
+      {
+        path: "/dashboard/admin/updateItem/:id",
+        element: (
+          <PrivateRoutes>
+            <UpdateItem />
+          </PrivateRoutes>
+        ),
         loader: ({ params }) => {
           console.log("Loading ID:", params.id); // ✅ check if it logs
           return fetch(`http://localhost:5000/menu/${params.id}`);
-        }
-      }
-      
-      
+        },
+      },
 
+      //user
     ],
   },
 ]);
